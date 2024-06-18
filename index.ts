@@ -1,5 +1,3 @@
-
-import app from "./package.json";
 import { registerCoreHelpers } from "./helpers";
 
 const isPromise = (obj: any): boolean =>
@@ -7,7 +5,11 @@ const isPromise = (obj: any): boolean =>
   (typeof obj === "object" || typeof obj === "function") &&
   typeof obj.then === "function";
 
-export function asyncHelpers(hbs: any) {
+type ExtendedHandleBars = typeof Handlebars & {
+  JavaScriptCompiler: any;
+};
+
+export function asyncHelpers(hbs: ExtendedHandleBars) {
   const handlebars = hbs.create(),
     asyncCompiler = class extends hbs.JavaScriptCompiler {
       compiler: any;
@@ -42,10 +44,10 @@ export function asyncHelpers(hbs: any) {
       }
     };
 
-  handlebars.JavaScriptCompiler = asyncCompiler;
+  (handlebars as ExtendedHandleBars).JavaScriptCompiler = asyncCompiler;
 
   const _compile = handlebars.compile,
-    _template = handlebars.VM.template,
+    _template = (handlebars.VM as any).template,
     _escapeExpression = handlebars.escapeExpression,
     escapeExpression = function (value: any) {
       if (isPromise(value)) {
@@ -105,7 +107,6 @@ export function asyncHelpers(hbs: any) {
       return compiled.call(handlebars, context, execOptions);
     };
   };
-  handlebars.ASYNC_VERSION = app.version;
 
   registerCoreHelpers(handlebars);
 
