@@ -5,16 +5,16 @@ Library that adds support to asynchronous function helpers to handlebars lib.
 ### How to install
 
 ```shell
-npm install handlebars-async-helpers
+npm install handlebars-async-helpers-ts
 ```
 
 ### How to use
 
 ```javascript
-import * as handlebars from "handlebars";
-import * as asyncHelpers from "handlebars-async-helpers-ts";
+import Handlebars from "handlebars";
+import asyncHelpers from "handlebars-async-helpers-ts";
 
-const hb = asyncHelpers(handlebars);
+const hb = asyncHelpers(Handlebars);
 
 hb.registerHelper(
   "sleep",
