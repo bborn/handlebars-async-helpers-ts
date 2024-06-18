@@ -12,7 +12,7 @@ npm install handlebars-async-helpers
 
 ```javascript
 import * as handlebars from "handlebars";
-import * as asyncHelpers from "handlebars-async-helpers";
+import * as asyncHelpers from "handlebars-async-helpers-ts";
 
 const hb = asyncHelpers(handlebars);
 
