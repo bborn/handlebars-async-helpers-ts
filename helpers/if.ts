@@ -9,7 +9,7 @@ type Options = {
 };
 
 export default (handlebars: any) => {
-  handlebars.registerHelper('if', async function(conditional: any, options: Options) {
+  handlebars.registerHelper('if', async function(this: any, conditional: any, options: Options) {
     if (arguments.length !== 2) {
       throw new Error('#if requires exactly one argument');
     }
@@ -25,7 +25,7 @@ export default (handlebars: any) => {
     }
   });
 
-  handlebars.registerHelper('unless', function(conditional: any, options: Options) {
+  handlebars.registerHelper('unless', function(this: any, conditional: any, options: Options) {
     if (arguments.length !== 2) {
       throw new Error('#unless requires exactly one argument');
     }
