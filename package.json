@@ -1,5 +1,5 @@
 {
-  "name": "handlebars-async-helpers",
+  "name": "handlebars-async-helpers-ts",
   "version": "2.0.0",
   "description": "Adding async function support to handlebars helpers",
   "main": "dist/index.js",
@@ -8,7 +8,7 @@
     "build": "tsc -p .",
     "prepublish": "npm run build"
   },
-  "repository": "https://github.com/gastonrobledo/handlebars-async-helpers",
+  "repository": "https://github.com/bborn/handlebars-async-helpers",
   "author": "Gaston Robledo",
   "contributors": ["Bruno Bornsztein"],
   "license": "MIT",
