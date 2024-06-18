@@ -6,23 +6,30 @@
   "scripts": {
     "test": "ts-mocha --ui bdd --recursive --timeout 15000 'test/**/*.ts'",
     "build": "tsc -p .",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "lint": "eslint ."
   },
   "repository": "https://github.com/bborn/handlebars-async-helpers",
   "author": "Gaston Robledo",
-  "contributors": ["Bruno Bornsztein"],
+  "contributors": [
+    "Bruno Bornsztein"
+  ],
   "license": "MIT",
   "peerDependencies": {
     "handlebars": "4.x"
   },
   "devDependencies": {
+    "@eslint/js": "^9.5.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.14.5",
+    "eslint": "^9.5.0",
+    "globals": "^15.6.0",
     "handlebars": "^4.7.8",
     "mocha": "^10.0.0",
     "should": "^13.2.3",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.13.1"
   }
 }

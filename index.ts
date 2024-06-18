@@ -1,3 +1,4 @@
+
 import app from "./package.json";
 import { registerCoreHelpers } from "./helpers";
 
