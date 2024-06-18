@@ -9,7 +9,7 @@
     "prepublish": "npm run build",
     "lint": "eslint ."
   },
-  "repository": "https://github.com/bborn/handlebars-async-helpers",
+  "repository": "https://github.com/bborn/handlebars-async-helpers-ts",
   "author": "Gaston Robledo",
   "contributors": [
     "Bruno Bornsztein"
