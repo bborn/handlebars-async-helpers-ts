@@ -5,11 +5,7 @@ const isPromise = (obj: any): boolean =>
   (typeof obj === "object" || typeof obj === "function") &&
   typeof obj.then === "function";
 
-type ExtendedHandleBars = typeof Handlebars & {
-  JavaScriptCompiler: any;
-};
-
-export function asyncHelpers(hbs: ExtendedHandleBars) {
+export function asyncHelpers(hbs: any) {
   const handlebars = hbs.create(),
     asyncCompiler = class extends hbs.JavaScriptCompiler {
       compiler: any;
@@ -44,7 +40,7 @@ export function asyncHelpers(hbs: ExtendedHandleBars) {
       }
     };
 
-  (handlebars as ExtendedHandleBars).JavaScriptCompiler = asyncCompiler;
+  handlebars.JavaScriptCompiler = asyncCompiler;
 
   const _compile = handlebars.compile,
     _template = (handlebars.VM as any).template,
@@ -101,7 +97,7 @@ export function asyncHelpers(hbs: ExtendedHandleBars) {
   handlebars.compile = function (template: any, options: any) {
     const compiled = _compile.apply(handlebars, [template, { ...options }]);
 
-    return function (context: any, execOptions: any) {
+    return function (context?: any, execOptions?: any) {
       context = context || {};
 
       return compiled.call(handlebars, context, execOptions);

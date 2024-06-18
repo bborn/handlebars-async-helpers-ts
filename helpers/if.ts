@@ -1,4 +1,4 @@
-import { HelperOptions } from "handlebars";
+import type { HelperOptions } from "handlebars";
 import { isPromise, isEmpty } from "../utils";
 
 type Options = HelperOptions;
