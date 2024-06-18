@@ -1,8 +1,7 @@
-const should = require('should'),
-    { PassThrough } = require('stream'),
-    Handlebars = require('handlebars'),
-    asyncHelpers = require('../index')
-const { resolve } = require('eslint-plugin-promise/rules/lib/promise-statics')
+import should from 'should';
+import { PassThrough } from 'stream';
+import Handlebars from 'handlebars';
+import asyncHelpers from '../index';
 
 describe('Test async helpers', () => {
 
@@ -178,7 +177,7 @@ describe('Test async helpers', () => {
     })
 
     it('Test with custom helpers and complex replacements', async () => {
-        const timeout = ms => new Promise(res => setTimeout(res, ms)),
+        const timeout = (ms: number | undefined) => new Promise(res => setTimeout(res, ms)),
             delay = async function delayFn() {
                 await timeout(50)
                 return 1000
@@ -186,7 +185,7 @@ describe('Test async helpers', () => {
             hbs = asyncHelpers(Handlebars)
 
         hbs.registerHelper({
-            extend: async function (partial, options) {
+            extend: async function (partial: string, options: { data: { partials: { partial: any; }; }; fn: (arg0: any) => any; }) {
                 let context = this,
                     // noinspection JSUnresolvedVariable
                     template = hbs.partials[partial] || options.data?.partials?.partial
@@ -206,28 +205,28 @@ describe('Test async helpers', () => {
                 // Render final layout partial with revised blocks
                 return template(context, options)
             },
-            append: function (block, options) {
+            append: function (block: string | number, options: { fn: any; }) {
                 this.blocks = this.blocks || {}
                 this.blocks[block] = {
                     should: 'append',
                     fn: options.fn
                 }
             },
-            prepend: function (block, options) {
+            prepend: function (block: string | number, options: { fn: any; }) {
                 this.blocks = this.blocks || {}
                 this.blocks[block] = {
                     should: 'prepend',
                     fn: options.fn
                 }
             },
-            replace: function (block, options) {
+            replace: function (block: string | number, options: { fn: any; }) {
                 this.blocks = this.blocks || {}
                 this.blocks[block] = {
                     should: 'replace',
                     fn: options.fn
                 }
             },
-            block: function (name, options) {
+            block: function (name: string | number, options: { fn: (arg0: any) => any; }) {
                 this.blocks = this.blocks || {}
                 let block = this.blocks[name]
                 let results = []
@@ -252,7 +251,7 @@ describe('Test async helpers', () => {
         })
 
         hbs.registerHelper('delay', delay)
-        hbs.registerHelper('cursor', async (options) => {
+        hbs.registerHelper('cursor', async (options: any) => {
             await timeout(50)
             return [{ name: 'test' }, { name: 'test2' }]
         })
@@ -360,7 +359,7 @@ describe('Test async helpers', () => {
             child = '<div>Child: {{> grandChild}}</div>',
             grandChild = '<p>Grand Child: {{#delayed 50}}{{/delayed}}</p>',
             expected = '<div>Parent <div>Child: <p>Grand Child: Hello!</p></div></div>'
-        hbs.registerHelper('delayed', (time) => {
+        hbs.registerHelper('delayed', (time: number | undefined) => {
             return new Promise((resolve) => {
                 setTimeout(() => resolve('Hello!'), time)
             })
@@ -378,7 +377,7 @@ describe('Test async helpers', () => {
             child = '<div>Child: {{> grandChild data3=data2}}</div>',
             grandChild = '<p>{{data3.test}} Grand Child: {{#delayed 50}}{{/delayed}}</p>',
             expected = '<div>Parent <div>Child: <p>test Grand Child: Hello!</p></div></div>'
-        hbs.registerHelper('delayed', (time) => {
+        hbs.registerHelper('delayed', (time: number | undefined) => {
             return new Promise((resolve) => {
                 setTimeout(() => resolve('Hello!'), time)
             })
@@ -394,7 +393,7 @@ describe('Test async helpers', () => {
         const hbs = asyncHelpers(Handlebars),
             template = '<div>Value: {{#multiply 100 20}}{{/multiply}}</div>',
             expected = '<div>Value: 2000</div>'
-        hbs.registerHelper('multiply', (a, b) => {
+        hbs.registerHelper('multiply', (a: number, b: number) => {
             return a * b
         })
         const compiled = hbs.compile(template),
@@ -406,7 +405,7 @@ describe('Test async helpers', () => {
         const hbs = asyncHelpers(Handlebars),
             template = '<div>Value: {{toUpperAsync "my text"}}</div>',
             expected = '<div>Value: MY TEXT</div>'
-        hbs.registerHelper('toUpperAsync', async (value) => {
+        hbs.registerHelper('toUpperAsync', async (value: string) => {
             return Promise.resolve(value.toUpperCase())
         })
         const compiled = hbs.compile(template),
@@ -417,7 +416,7 @@ describe('Test async helpers', () => {
     it('Test each helper with an empty item list', async () => {
         const hbs = asyncHelpers(Handlebars)
 
-        const items = [],
+        const items: never[] = [],
             result = await hbs.compile('Devs \n{{#each items}}{{/each}}')({items})
         should.equal(result, 'Devs \n')
     })

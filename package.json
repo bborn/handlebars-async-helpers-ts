@@ -1,18 +1,22 @@
 {
   "name": "handlebars-async-helpers",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "description": "Adding async function support to handlebars helpers",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --ui bdd --recursive --timeout 15000"
+    "test": "ts-mocha --ui bdd --recursive --timeout 15000 'test/**/*.ts'",
+    "build": "tsc"
   },
   "repository": "https://github.com/gastonrobledo/handlebars-async-helpers",
   "author": "Gaston Robledo",
+  "contributors": ["Bruno Bornsztein"],
   "license": "MIT",
   "peerDependencies": {
     "handlebars": "4.x"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.14.5",
     "eslint": "^8.48.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-standard": "^12.0.0",
@@ -22,6 +26,9 @@
     "eslint-plugin-standard": "^4.0.0",
     "handlebars": "^4.7.8",
     "mocha": "^10.0.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "ts-mocha": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }

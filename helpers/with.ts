@@ -1,7 +1,7 @@
-const {isPromise, isEmpty, createFrame, appendContextPath, blockParams} = require("../utils")
+import { isPromise, isEmpty, createFrame, appendContextPath, blockParams } from "../utils";
 
-module.exports = (handlebars) => {
-    handlebars.registerHelper('with', async function(context, options) {
+export default (handlebars: any) => {
+    handlebars.registerHelper('with', async function(this: any, context: any, options: any) {
         if (arguments.length !== 2) {
             throw new Error('#with requires exactly one argument')
         }
