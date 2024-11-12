@@ -66,10 +66,10 @@ export function asyncHelpers(hbs: any) {
   handlebars.template = function (spec: any) {
     spec.main_d =
       (
-        prog: any,
-        props: any,
+        _prog: any,
+        _props: any,
         container: any,
-        depth: any,
+        _depth: any,
         data: any,
         blockParams: any,
         depths: any
